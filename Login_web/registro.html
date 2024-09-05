@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registrar Cuenta</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="wrapper">
+        <h1>Registro de Cuenta</h1>
+        <form onsubmit="registrarCuenta(event)">
+            <div class="input-box">
+                <input type="text" id="nombre" placeholder="Nombre" required>
+            </div>
+            <div class="input-box">
+                <input type="text" id="apellido" placeholder="Apellido" required>
+            </div>
+            <div class="input-box">
+                <input type="text" id="usuario" placeholder="Nombre de usuario" required>
+            </div>
+            <div class="input-box">
+                <input type="email" id="correo" placeholder="Correo" required>
+            </div>
+            <div class="input-box">
+                <input type="password" id="password" placeholder="Contraseña" required>
+            </div>
+            <button type="submit" class="btn">Registrar</button>
+        </form>
+        <div class="register-link">
+            <p>¿Ya tienes una cuenta? <a href="login.html">Inicia sesión aquí</a></p>
+        </div>
+    </div>
+
+    <script>
+        function registrarCuenta(event) {
+            event.preventDefault();
+
+            const usuario = {
+                nombre: document.getElementById('nombre').value,
+                apellido: document.getElementById('apellido').value,
+                username: document.getElementById('usuario').value,
+                correo: document.getElementById('correo').value,
+                password: document.getElementById('password').value
+            };
+
+            // Recuperar cuentas existentes
+            let cuentas = JSON.parse(localStorage.getItem('cuentas')) || [];
+
+            // Verificar si el nombre de usuario ya existe
+            const existeUsuario = cuentas.some(cuenta => cuenta.username === usuario.username);
+            if (existeUsuario) {
+                alert("El nombre de usuario ya está en uso. Por favor elige otro.");
+                return;
+            }
+
+            // Registrar nueva cuenta
+            cuentas.push(usuario);
+            localStorage.setItem('cuentas', JSON.stringify(cuentas));
+
+            alert("Cuenta registrada con éxito!");
+            window.location.href = 'login.html'; // Redirigir al login
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro de Pedidos</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="wrapper">
+        <h1>Registrar Pedido</h1>
+        <form onsubmit="registrarPedido(event)">
+            <div class="input-box">
+                <input type="text" id="nombre" placeholder="Nombre" required>
+            </div>
+            <div class="input-box">
+                <input type="text" id="apellido" placeholder="Apellido" required>
+            </div>
+            <div class="input-box">
+                <input type="text" id="telefono" placeholder="Teléfono" required>
+            </div>
+            <div class="input-box">
+                <input type="text" id="producto" placeholder="Producto" required>
+            </div>
+            <div class="input-box">
+                <input type="number" id="cantidad" placeholder="Cantidad" required>
+            </div>
+            <div class="input-box">
+                <input type="number" id="precio" placeholder="Precio" required>
+            </div>
+            <div class="input-box">
+                <input type="email" id="correo" placeholder="Correo" required>
+            </div>
+            <div class="input-box">
+                <input type="text" id="direccion" placeholder="Dirección" required>
+            </div>
+            <div class="input-box">
+                <input type="date" id="fechaEnvio" placeholder="Fecha de Envío" required>
+            </div>
+            <button type="submit" class="btn">Registrar Pedido</button>
+        </form>
+    </div>
+
+    <script>
+        function registrarPedido(event) {
+            event.preventDefault();
+
+            const pedido = {
+                nombre: document.getElementById('nombre').value,
+                apellido: document.getElementById('apellido').value,
+                telefono: document.getElementById('telefono').value,
+                producto: document.getElementById('producto').value,
+                cantidad: document.getElementById('cantidad').value,
+                precio: document.getElementById('precio').value,
+                correo: document.getElementById('correo').value,
+                direccion: document.getElementById('direccion').value,
+                fechaEnvio: document.getElementById('fechaEnvio').value
+            };
+
+            // Guardar el pedido (simulación con localStorage)
+            let pedidos = JSON.parse(localStorage.getItem('pedidos')) || [];
+            pedidos.push(pedido);
+            localStorage.setItem('pedidos', JSON.stringify(pedidos));
+
+            alert("Pedido registrado con éxito!");
+            document.querySelector('form').reset(); // Limpiar formulario
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Acceso | Login</title>
+    <link rel="stylesheet" href="style.css">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+</head>
+<body>
+    <div class="wrapper">
+        <form onsubmit="login(event)">
+            <h1>Acceso</h1>
+            <div class="input-box">
+                <i class='bx bxs-user'></i>
+                <input type="text" id="username" placeholder="Usuario" required>
+            </div>
+            <div class="input-box">
+                <i class='bx bxs-lock-alt'></i>
+                <input type="password" id="password" placeholder="Contraseña" required>
+            </div>
+            <div class="remember-forgot">
+                <label><input type="checkbox"> Recordarme</label>
+                <a href="#">¿Olvidaste tu cuenta?</a>
+            </div>
+            <button type="submit" class="btn">Ingresar</button>
+            <div class="register-link">
+                <p>¿No tienes una cuenta? <a href="registro.html">Registrarme</a></p>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        function login(event) {
+            event.preventDefault();
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+
+            // Obtener cuentas registradas
+            let cuentas = JSON.parse(localStorage.getItem('cuentas')) || [];
+
+            // Verificar si el usuario y la contraseña son correctos
+            const usuarioEncontrado = cuentas.find(cuenta => cuenta.username === username && cuenta.password === password);
+
+            if (usuarioEncontrado) {
+                alert(`Bienvenido ${usuarioEncontrado.nombre}!`);
+                window.location.href = 'pedidos.html'; // Redirige a la página de pedidos
+            } else {
+                alert("Usuario o contraseña incorrectos");
+            }
+        }
+    </script>
+</body>
+</html>
